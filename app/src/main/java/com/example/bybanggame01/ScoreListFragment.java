@@ -53,12 +53,15 @@ public class ScoreListFragment extends Fragment {
     // 初始化 ListView
     private void initListView(){
         listData = new LinkedList<>();
-        for (int i = 0; i < mainActivity.data.size(); i++) {
-            MainActivity.ScoreHistory scoreHistory = mainActivity.data.get(i);
+        int scoreHistorySize = mainActivity.sharedPreferences.getInt("dataSize",0);
+        for (int i = 0; i < scoreHistorySize; i++) {
+//            MainActivity.ScoreHistory scoreHistory = mainActivity.data.get(i);
+            int score = mainActivity.sharedPreferences.getInt("data_"+i+"_score",-1);
+            String timestamp = mainActivity.sharedPreferences.getString("date_"+i+"_timestamp",null);
             HashMap<String,String> row = new HashMap<>();
             row.put(from[0],"排名：" + (i + 1));
-            row.put(from[1],"得分：" + scoreHistory.getScore());
-            row.put(from[2],scoreHistory.getTimeStamp());
+            row.put(from[1],"得分：" + score);
+            row.put(from[2],timestamp);
             listData.add(row);
         }
 
